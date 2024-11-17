@@ -70,7 +70,7 @@ jobs:
       # Check if Postgres is ready and accessible
       - name: Wait for PostgreSQL to be ready
         run: |
-          until pg_isready -h $DATABASE_HOSTNAME -p $DATABASE_PORT -U $DATABASE_USERNAME -d $DATABASE_NAME_test; do
+          until pg_isready -h $DATABASE_HOSTNAME -p $DATABASE_PORT -U $DATABASE_USERNAME -d "$DATABASE_NAME_test"; do
             echo "Waiting for PostgreSQL to be ready..."
             sleep 5
           done
