@@ -52,6 +52,9 @@ jobs:
 
       - name: Check files in the test directory
         run: ls -la /home/runner/work/fastapi_course/fastapi_course/test
+      
+      - name: Add the project to PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd)/app" >> $GITHUB_ENV
 
       - name: List Databases
         run: |
