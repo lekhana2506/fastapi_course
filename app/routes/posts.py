@@ -101,6 +101,8 @@ def get_post_using_id(id:int,db:Session=Depends(get_db),current_user: int = Depe
     # return posts
 
     results=db.query(models.Post,func.count(models.Votes.post_id).label("votes")).join(models.Votes,models.Post.id==models.Votes.post_id,isouter=True).group_by(models.Post.id).filter(models.Post.id==id).first()
+    if not results:
+         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND)
 
     return results
 

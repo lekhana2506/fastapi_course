@@ -38,7 +38,7 @@ app.include_router(vote.router)
 
 @app.get("/")
 def print_hello():
-    return{"message":"hello_world"}
+    return{"message":"changed"}
 
 #automated documantation
 # url/docs or url/redoc
