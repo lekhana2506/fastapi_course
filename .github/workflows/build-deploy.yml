@@ -15,14 +15,14 @@ jobs:
       SECRET_KEY: ${{ secrets.SECRET_KEY }}
       ALGORITHM: ${{ secrets.ALGORITHM }}
       ACCESS_TOKEN_EXPIRE_MINUTES: ${{ secrets.ACCESS_TOKEN_EXPIRE_MINUTES }}
-      TEST_DATABASE: ${{ secrets.TEST_DATABASE}}
+      TEST_DATABASE: ${{ secrets.TEST_DATABASE }}
 
     services:
       postgres:
         image: postgres
         env:
           POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          POSTGRES_DB: '${{ secrets.DATABASE_NAME}}_test'
+          POSTGRES_DB: '${{ secrets.DATABASE_NAME }}_test'
         ports:
           - 5432:5432
         options: >-
@@ -51,7 +51,7 @@ jobs:
         run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
 
       - name: Debug Import Issues
-        run:
+        run: |
           python -c "import sys; print(sys.path)"
           python -c "from app.main import myapp; print('myapp imported successfully')"
 
