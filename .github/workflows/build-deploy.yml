@@ -50,10 +50,10 @@ jobs:
       - name: Set PYTHONPATH
         run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
 
-     - name: Debug Import Issues
-       run:
-        python -c "import sys; print(sys.path)"
-        python -c "from app.main import myapp; print('myapp imported successfully')"
+      - name: Debug Import Issues
+        run:
+          python -c "import sys; print(sys.path)"
+          python -c "from app.main import myapp; print('myapp imported successfully')"
 
       - name: Install dependencies
         run: pip install -r requirements.txt
