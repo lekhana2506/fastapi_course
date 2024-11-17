@@ -22,7 +22,7 @@ jobs:
         image: postgres
         env:
           POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-          POSTGRES_DB: ${{ secrets.TEST_DATABASE}}
+          POSTGRES_DB: '${{ secrets.DATABASE_NAME}}_test'
         ports:
           - 5432:5432
         options: >-
@@ -49,18 +49,6 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-
-      - name: Check files in the test directory
-        run: ls -la /home/runner/work/fastapi_course/fastapi_course/test
-      
-      - name: Add the project to PYTHONPATH
-        run: echo "PYTHONPATH=$(pwd)/app" >> $GITHUB_ENV
-
-      - name: List Databases
-        run: |
-          psql -h localhost -p 5432 -U postgres -c '\l'
-        env:
-          PGPASSWORD: ${{ secrets.DATABASE_PASSWORD }}
 
       - name: test with pytest
         run: |
