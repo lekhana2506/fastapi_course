@@ -49,6 +49,12 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: List Databases
+        run: |
+          psql -h localhost -p 5432 -U postgres -c '\l'
+        env:
+          PGPASSWORD: ${{ secrets.DATABASE_PASSWORD }}
+
       - name: test with pytest
         run: |
           pip install pytest
