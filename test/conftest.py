@@ -14,7 +14,7 @@ from app.oauth2 import create_access_token
 
 #client=TestClient(app)
 
-database_url=f'postgresql://postgres:2506@localhost:5432/testing'
+database_url = f'postgresql://{os.getenv("DATABASE_USERNAME")}:{os.getenv("DATABASE_PASSWORD")}@localhost:5432/{os.getenv("TEST_DATABASE", "default_database")}'
 engine=create_engine(database_url)
 
 TestingsessionLocal=sessionmaker(autocommit=False, autoflush=False,bind=engine)
