@@ -50,6 +50,9 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Check files in the test directory
+        run: ls -la /home/runner/work/fastapi_course/fastapi_course/test
+
       - name: List Databases
         run: |
           psql -h localhost -p 5432 -U postgres -c '\l'
