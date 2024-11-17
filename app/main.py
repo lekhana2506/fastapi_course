@@ -8,9 +8,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 settings=Settings()
 
-app= FastAPI()
+App= FastAPI()
 origins=["*"]
-app.add_middleware(
+App.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
@@ -31,12 +31,12 @@ store_posts=[]
 #         print("Error: ",error)
 #         time.sleep(2)
 
-app.include_router(posts.router)
-app.include_router(users.router)
-app.include_router(auth.router)
-app.include_router(vote.router)
+App.include_router(posts.router)
+App.include_router(users.router)
+App.include_router(auth.router)
+App.include_router(vote.router)
 
-@app.get("/")
+@App.get("/")
 def print_hello():
     return{"message":"changed"}
 
