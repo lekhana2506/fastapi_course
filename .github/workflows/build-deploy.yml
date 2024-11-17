@@ -50,6 +50,20 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Debug DB Credentials
+        run: |
+          echo "DATABASE_HOSTNAME: $DATABASE_HOSTNAME"
+          echo "DATABASE_USERNAME: $DATABASE_USERNAME"
+
+
+      - name: Set PYTHONPATH
+        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
+
+      - name: Debug Import Issues
+        run: |
+          python -c "import sys; print(sys.path)"
+          python -c "from app.main import myapp; print('myapp imported successfully')"
+
       - name: test with pytest
         run: |
           pip install pytest
