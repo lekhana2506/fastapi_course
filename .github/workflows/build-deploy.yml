@@ -8,7 +8,7 @@ jobs:
       name: testing
     env:
       DATABASE_HOSTNAME: ${{ secrets.DATABASE_HOSTNAME }}
-      DATABASE_PORT: ${{ secrets.DATABASE_PORT }}
+      DATABASE_PORT: 5433  # Updated to match the exposed port in Docker Compose
       DATABASE_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
       DATABASE_NAME: ${{ secrets.DATABASE_NAME }}
       DATABASE_USERNAME: ${{ secrets.DATABASE_USERNAME }}
@@ -70,8 +70,8 @@ jobs:
       # Check if Postgres is ready and accessible
       - name: Wait for PostgreSQL to be ready
         run: |
-          until pg_isready -h $DATABASE_HOSTNAME -p $DATABASE_PORT -U $DATABASE_USERNAME -d "$DATABASE_NAME_test"; do
-            echo "Waiting for PostgreSQL to be ready..."
+          until pg_isready -h $DATABASE_HOSTNAME -p $DATABASE_PORT -U $DATABASE_USERNAME -d "${DATABASE_NAME}_test"; do
+            echo "Waiting for PostgreSQL to be ready... (current time: $(date))"
             sleep 5
           done
           echo "PostgreSQL is ready"
