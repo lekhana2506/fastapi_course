@@ -1,41 +1,43 @@
 from fastapi.testclient import TestClient
 from app.main import app
+from app.config import Settings
 from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-from app.database import get_db, Base
+from app.database import get_db
+from app import models
+import os
+import psycopg2
+from app.database import base
 import pytest
+from app.oauth2 import create_access_token
 
-# Test database URL
-TEST_DATABASE_URL = 'postgresql://postgres:2506@localhost:5432/testing'
+#client=TestClient(app)
 
-# Create engine and session factory for the test database
-engine = create_engine(TEST_DATABASE_URL)
-TestingSessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+database_url=f'postgresql://postgres:2506@localhost:5432/testing'
+engine=create_engine(database_url)
 
-# Pytest fixture to manage database session
+TestingsessionLocal=sessionmaker(autocommit=False, autoflush=False,bind=engine)
+
 @pytest.fixture()
 def session():
-    # Drop and recreate tables for a clean slate
-    Base.metadata.drop_all(bind=engine)
-    Base.metadata.create_all(bind=engine)
-    db = TestingSessionLocal()
+    base.metadata.drop_all(bind=engine)   # drops the prev tables
+    base.metadata.create_all(bind=engine) # creates database
+    db=TestingsessionLocal()
     try:
         yield db
     finally:
         db.close()
 
-# Pytest fixture for the test client
 @pytest.fixture()
 def client(session):
-    # Override `get_db` to use the test database session
     def override_get_db():
         try:
             yield session
         finally:
             session.close()
-
-    app.dependency_overrides[get_db] = override_get_db
-    yield TestClient(app)
+    app.dependency_overrides[get_db]=override_get_db
+    yield TestClient(app)                 # runs the test
 
 @pytest.fixture
 def test_user2(client):
