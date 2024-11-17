@@ -11,10 +11,13 @@ import psycopg2
 from app.database import base
 import pytest
 from app.oauth2 import create_access_token
+from app.config import Settings
+
+settings=Settings()
 
 #client=TestClient(app)
 
-database_url = f'postgresql://{os.getenv("DATABASE_USERNAME")}:{os.getenv("DATABASE_PASSWORD")}@localhost:5432/{os.getenv("TEST_DATABASE", "default_database")}'
+database_url = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:{settings.database_port}/testing'
 engine=create_engine(database_url)
 
 TestingsessionLocal=sessionmaker(autocommit=False, autoflush=False,bind=engine)
