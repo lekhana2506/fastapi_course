@@ -5,14 +5,14 @@ on: [push, pull_request]
 jobs:
   job1:
     env:
-      DATABASE_HOSTNAME=localhost
-      DATABASE_PORT=5432
-      DATABASE_PASSWORD=2506
-      DATABASE_NAME=fastapiprojectserver
-      DATABASE_USERNAME=postgres
-      SECRET_KEY = "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
-      ALGORITHM = "HS256"
-      ACCESS_TOKEN_EXPIRE_MINUTES = 60
+      DATABASE_HOSTNAME: localhost
+      DATABASE_PORT: 5432
+      DATABASE_PASSWORD: 2506
+      DATABASE_NAME: fastapiprojectserver
+      DATABASE_USERNAME: postgres
+      SECRET_KEY: "09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7"
+      ALGORITHM: "HS256"
+      ACCESS_TOKEN_EXPIRE_MINUTES: 60
     runs-on: ubuntu-latest
     steps:
       - name: pulling git repo
@@ -25,6 +25,7 @@ jobs:
         uses: actions/setup-python@v2
         with: 
           python-version: "3.9"
+
       - name: Upgrade pip
         run: python -m pip install --upgrade pip
 
@@ -32,10 +33,6 @@ jobs:
         run: pip install -r requirements.txt
 
       - name: test with pytest
-        run: 
+        run: |
           pip install pytest
           pytest
-
-
-
-
