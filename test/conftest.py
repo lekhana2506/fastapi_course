@@ -1,5 +1,4 @@
 from fastapi.testclient import TestClient
-from app.main import app
 from app.config import Settings
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
