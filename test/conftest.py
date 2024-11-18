@@ -17,7 +17,7 @@ settings=Settings()
 
 #client=TestClient(app)
 
-database_url = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:5433/{settings.database_hostname}_test'
+database_url = f'postgresql://{settings.database_username}:{settings.database_password}@{settings.database_hostname}:5432/{settings.database_hostname}_test'
 engine=create_engine(database_url)
 
 TestingsessionLocal=sessionmaker(autocommit=False, autoflush=False,bind=engine)

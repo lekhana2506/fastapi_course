@@ -25,7 +25,7 @@ jobs:
           POSTGRES_PASSWORD: ${{ secrets.DATABASE_PASSWORD }}
           POSTGRES_DB: '${{ secrets.DATABASE_NAME }}_test'
         ports:
-          - 5433:5432
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -50,53 +50,7 @@ jobs:
 
       - name: Install dependencies
         run: pip install -r requirements.txt
-
-      # Debug DB Credentials
-      - name: Debug DB Credentials
-        run: |
-          echo "DATABASE_HOSTNAME: $DATABASE_HOSTNAME"
-          echo "DATABASE_PORT: $DATABASE_PORT"
-          echo "DATABASE_USERNAME: $DATABASE_USERNAME"
-          echo "DATABASE_NAME: $DATABASE_NAME"
-          echo "TEST_DATABASE: $TEST_DATABASE"
-
-      # Debug environment variables
-      - name: Debug Environment Variables
-        run: |
-          echo "SECRET_KEY: $SECRET_KEY"
-          echo "ALGORITHM: $ALGORITHM"
-          echo "ACCESS_TOKEN_EXPIRE_MINUTES: $ACCESS_TOKEN_EXPIRE_MINUTES"
-
-      # Check if Postgres is ready and accessible
-      - name: Wait for PostgreSQL to be ready
-        run: |
-          until pg_isready -h $DATABASE_HOSTNAME -p $DATABASE_PORT -U $DATABASE_USERNAME -d "${DATABASE_NAME}_test"; do
-            echo "Waiting for PostgreSQL to be ready... (current time: $(date))"
-            sleep 5
-          done
-          echo "PostgreSQL is ready"
-
-      # Verify PostgreSQL connection (test with the test database)
-      - name: Test PostgreSQL connection
-        run: |
-          PGPASSWORD=$DATABASE_PASSWORD psql -h $DATABASE_HOSTNAME -p $DATABASE_PORT -U $DATABASE_USERNAME -d "${DATABASE_NAME}_test" -c "SELECT 1"
-        env:
-          PGPASSWORD: ${{ secrets.DATABASE_PASSWORD }}
-
-      # Print Python package versions for debugging
-      - name: Check Python packages
-        run: |
-          python -m pip show pytest
-          python -m pip show psycopg2
-
-      - name: Set PYTHONPATH
-        run: echo "PYTHONPATH=$(pwd)" >> $GITHUB_ENV
-
-      - name: Debug Import Issues
-        run: |
-          python -c "import sys; print(sys.path)"
-          python -c "from app.main import myapp; print('myapp imported successfully')"
-
+        
       # Run tests with pytest
       - name: test with pytest
         run: |
