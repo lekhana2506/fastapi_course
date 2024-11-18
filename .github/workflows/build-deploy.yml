@@ -54,4 +54,4 @@ jobs:
       - name: test with pytest
         run: |
           pip install pytest
-          pytest --maxfail=1 --disable-warnings -q
+          pytest -v -x -s --disable-warnings
