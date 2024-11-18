@@ -6,25 +6,24 @@ jobs:
   job1:
     environment:
       name: testing
-    env:
-     - DATABASE_HOSTNAME=localhost
-     - DATABASE_PORT=5432  # Updated to match the exposed port in Docker Compose
-     - DATABASE_PASSWORD=2506
-     - DATABASE_NAME=fastapiprojectserver
-     - DATABASE_USERNAME=postgres
-     - SECRET_KEY=09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
-     - ALGORITHM=HS256
-     - ACCESS_TOKEN_EXPIRE_MINUTES=60
+      DATABASE_HOSTNAME: localhost
+      DATABASE_PORT: 5432  # Updated to match the exposed port in Docker Compose
+      DATABASE_PASSWORD: 2506
+      DATABASE_NAME: fastapiprojectserver
+      DATABASE_USERNAME: postgres
+      SECRET_KEY: 09d25e094faa6ca2556c818166b7a9563b93f7099f6f0f4caa6cf63b88e8d3e7
+      ALGORITHM: HS256
+      ACCESS_TOKEN_EXPIRE_MINUTES: 60
 
     services:
       postgres:
         image: postgres
         env:
-         - POSTGRES_USER=postgres
-         - POSTGRES_PASSWORD= 2506
-         - POSTGRES_DB=fastapiprojectserver_testing
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: 2506
+          POSTGRES_DB: fastapiprojectserver_testing
         ports:
-          - "5433:5432"
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
