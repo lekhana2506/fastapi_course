@@ -32,7 +32,7 @@ jobs:
       - name: Set up PostgreSQL
         uses: docker://postgres:latest
         env:
-          POSTGRES_PASSWORD: password
+          POSTGRES_PASSWORD: 2506
           POSTGRES_USER: postgres
           POSTGRES_DB: fastapiprojectserver_test
         with:
