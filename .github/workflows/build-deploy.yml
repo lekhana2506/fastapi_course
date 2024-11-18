@@ -6,7 +6,6 @@ jobs:
   job1:
     environment:
       name: testing
-    env:
       DATABASE_HOSTNAME: localhost
       DATABASE_PORT: 5432  # Updated to match the exposed port in Docker Compose
       DATABASE_PASSWORD: 2506
